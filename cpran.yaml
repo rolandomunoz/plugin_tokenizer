@@ -1,0 +1,15 @@
+Plugin: segment_finder
+Homepage: https://github.com/rolandomunoz/plugin_tokenizer
+Version: 0.0.1
+Maintainer: R. Muñoz Aramburú <rolando.muar@gmail.com>
+Depends:
+  praat: 6.0.0+
+  Plugins: []
+Recommends:
+License:
+  - GPL3 <https://www.gnu.org/licenses/gpl-3.0.html>
+Readme: readme.md
+Description:
+  Short: A praat plugin which can tokenize an input tier into a word, syllable, or segment tier 
+  Long: >
+   
