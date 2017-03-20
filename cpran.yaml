@@ -1,4 +1,4 @@
-Plugin: segment_finder
+Plugin: tokenizer
 Homepage: https://github.com/rolandomunoz/plugin_tokenizer
 Version: 0.0.1
 Maintainer: R. Muñoz Aramburú <rolando.muar@gmail.com>
