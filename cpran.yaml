@@ -10,6 +10,6 @@ License:
   - GPL3 <https://www.gnu.org/licenses/gpl-3.0.html>
 Readme: readme.md
 Description:
-  Short: A praat plugin which can tokenize an input tier into a word, syllable, or segment tier 
+  Short: Tokenize an input tier into a word, syllable, or segment tier 
   Long: >
    
