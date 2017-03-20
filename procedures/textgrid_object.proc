@@ -1,38 +1,14 @@
-#Procedures
-#get_tier_class: .tier_name$
-#get_tier_number: .tier_name$
-#get_tier_name: .tier_name$
-
-#@get_tier_class: "word"
-#@get_tier_number: "word"
-#writeInfoLine: get_tier_class.return$, tab$, get_tier_number.return
-
-#@get_string_set: .string$, .columnName_set$, .columnName_element$
-#@procedure dictionary_get_word_shapes: .gloss$
-#@dictionary_get_word_gloss: .word$
-#@dictionary_add: .tg_word$, .tg_gloss$ 
-#@dictionary_search: .tg_word$, .tg_gloss$
-#@dictionary_get_gloss: .tg_word$
-#@dictionary_remove_duplications
-#@dictionary_open
-#@dictionary_build
-#@dictionary_review_TextGridEditor
-#@close_TextGridEditor
-#@open_TextGridEditor
-
 procedure tg.duplicate_tier: .tier_number, .tier_name$
-    if .tier_number = 1
-        .position = 1
-    else
-        .position = (.tier_number - 1)
-    endif
+    .position = .tier_number
     Duplicate tier: .tier_number, .position, .tier_name$
+    .position_input = .tier_number + 1
+    .position_output = .position
 endproc
 
-procedure get_tier_class: .tier_name$
+procedure tg.get_tier_class: .tier_name$
     #Returns "interval" or "point"
-    @get_tier_number: .tier_name$
-    if get_tier_number.return
+    @tg.get_tier_number: .tier_name$
+    if tg.get_tier_number.return
         .is_interval = Is interval tier: get_tier_number.return
         if .is_interval
             .return$ = "interval"
@@ -44,13 +20,13 @@ procedure get_tier_class: .tier_name$
     endif
 endproc
 
-procedure get_tier_number: .tier_name$
+procedure tg.get_tier_number: .tier_name$
     .return = 0
     .nTiers = Get number of tiers
     .tier = 1
     repeat
-        @get_tier_name: .tier
-        if .tier_name$ == get_tier_name.return$
+        @tg.get_tier_name: .tier
+        if .tier_name$ == tg.get_tier_name.return$
             .return = .tier
             .tier = .nTiers
         endif
@@ -58,136 +34,17 @@ procedure get_tier_number: .tier_name$
     until .tier > .nTiers
 endproc
 
-procedure get_tier_name: .tier_number
+procedure tg.get_tier_name: .tier_number
     .return$ = Get tier name: .tier_number
 endproc
 
-#######Procedures
-procedure open_TextGridEditor: .tgID, .soundID
-    selectObject: .tgID
-    plusObject: .soundID
-    View & Edit
-endproc
-
-procedure close_TextGridEditor: .tgID, .soundID
-    selectObject: .tgID
-    plusObject: .soundID
-    editor: .tgID
-    Close
-endproc
-
-procedure dictionary_review_TextGridEditor: .tgID, .soundID, .tmin, .tmax, .margin
-    selectObject: .tgID
-    editor: .tgID
-    Select: .tmin - .margin, .tmax + .margin        
-    Zoom to selection
-    Move cursor to: .tmin
-    beginPause: "Choose the corresponding meaning"
-    choice: "Gloss", 1
-        for .i to .nGloss
-            option: dictionary_get_word_gloss.return$[.i]
-        endfor
-    clicked = endPause: "Continue", 1
-    endeditor
-    Set interval text: gloss_tier, gloss_interval, dictionary_get_word_gloss.return$[gloss]
-endproc
-
-procedure dictionary_build: .tgID, .word_tier, .gloss_tier
-    .tableID = dictionary_open.tableID
-    selectObject: .tgID
-    .word_tier_nIntervals = Get number of intervals: .word_tier
-
-    #Map word and gloss information, then store them in a dictionary
-    for .word_interval to .word_tier_nIntervals
-        selectObject: .tgID
-        .word_label$ = Get label of interval: word_tier, .word_interval
-        if .word_label$ <> ""
-            .tmin = Get start time of interval: .word_tier, .word_interval
-            .tmax = Get end time of interval: .word_tier, .word_interval
-            .tmid = .tmin + (.tmax - .tmin)*0.5
-            .gloss_interval = Get interval at time: .gloss_tier, .tmid
-            .gloss_label$ =  Get label of interval: .gloss_tier, .gloss_interval
-            selectObject: .tableID
-            @dictionary_add: .word_label$, .gloss_label$
-        endif
-    endfor
-
-    #Remove duplicated information
-    selectObject: .tableID
-    @dictionary_remove_duplications
-    .tableID = dictionary_remove_duplications.tableID
-endproc
-
-procedure dictionary_open
-    .tableID = Create Table with column names: "Dictionary", 0, "word gloss"
-endproc
-
-procedure dictionary_remove_duplications
-    .tableID = selected("Table") 
-    .tableID_temp_a = Extract rows where column (text): "gloss", "is not equal to", ""
-    .tableID_temp_b = Collapse rows: "word gloss", "", "", "", "", ""
-    removeObject: .tableID_temp_a, .tableID
-    .tableID = .tableID_temp_b
-    selectObject: .tableID
-    Rename: "Dictionary"
-endproc
-
-procedure dictionary_get_gloss: .tg_word$
-    .return$ = ""
-    .word_row = Search column: "word", .tg_word$
-    if .word_row > 0
-       .return$ = Get value: .word_row, "gloss"
+procedure tg.ask_tier_name: .tier_name$
+    beginPause: "Tier number"
+        natural: "Tier '.tier_name$' position", 1
+    .clicked = endPause: "Continue", "Quit", 1
+    if .clicked = 2
+        exitScript()
+    elsif .clicked = 1
+        .return = tier_'.tier_name$'_position
     endif
-endproc
-
-procedure dictionary_search: .tg_word$, .tg_gloss$
-     .return = 0
-    .word_row= Search column: "word", .tg_word$
-    if .word_row = 0
-       .return = 1
-    else
-       .gloss$ = Get value: .word_row, "gloss"
-       if .gloss$ == ""
-       
-       elsif .gloss$ <> .tg_gloss$
-            .return = 1
-       endif
-    endif
-endproc
-
-procedure dictionary_add: .tg_word$, .tg_gloss$ 
-    Append row
-    .new_row = Get number of rows
-    Set string value: .new_row, "word", .tg_word$
-    Set string value: .new_row, "gloss", .tg_gloss$ 
-endproc
-
-procedure dictionary_get_word_gloss: .word$
-    @get_string_set: .word$, "word", "gloss"
-    .number_of_glosses = get_string_set.count
-    for .i to .number_of_glosses
-        .return$[.i] = get_string_set.element$[.i]
-    endfor
-endproc
-
-procedure dictionary_get_word_shapes: .gloss$
-    @get_string_set: .gloss$, "gloss", "word"
-    .number_of_shapes = get_string_set.count
-    for .i to .number_of_shapes
-        .return$[.i] = get_string_set.element$[.i]
-    endfor
-endproc
-
-procedure get_string_set: .string$, .columnName_set$, .columnName_element$
-    .count = 0
-    .nRows = Get number of rows
-
-    for .row to .nRows
-        .set$ = Get value: .row, .columnName_set$
-        .element$ = Get value: .row, .columnName_element$
-        if .set$ == .string$
-            .count += 1
-            .element$[.count] = .element$
-        endif
-    endfor
 endproc
