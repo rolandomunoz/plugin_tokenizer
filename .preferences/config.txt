@@ -1,0 +1,14 @@
+tg_folder_dir: eaoeoa
+sd_folder_dir: eoaeao
+src_tier: word
+src_tier2segment: syllable
+src_tier2syllable: word
+src_tier2word: text
+add_tier2segment: 0
+add_tier2syllable: 0
+add_tier2word: 0
+add_segment_tier: 1
+add_syllable_tier: 1
+add_word_tier: 0
+vowel: u~ o~ i~ e~ a~ ú ó í é á u o i e a 1
+consonant.more_than_one_char: ts tS
