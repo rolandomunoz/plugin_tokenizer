@@ -1,0 +1,128 @@
+procedure tokenizer.string2syllable_cvc: .string$, .vowel_segment$, .consonant_complex_segment$, .erase_char$
+    # Tokenize a string variable into syllables.
+    ## Input: a string variable
+    ## Output: a Strings object which contains segments
+    ## Args:
+    ## .string_var$: the input of this procedure
+    ## .vowel_segment$: a regex expressions which contains the complex segments that correspond to vowels
+    ## .consonant_complex_segment$: 
+    ## .erase_char$: 
+    
+    .string$ = replace_regex$(.string$, " ", "", 0)
+    .string$ = replace_regex$(.string$, .erase_char$, "", 0)
+    .strID_syllables = Create Strings as characters: ""
+    Rename: "syllables"
+    
+    .v$ = .vowel_segment$
+    .c$ = .consonant_complex_segment$
+    .complex_segments$ = .v$ + "|" + .c$
+    
+    #Segment analysis
+    repeat
+        .syllable$ = .string$
+        .string_left$ = replace_regex$(.string$, "('.v$').*", "\1", 1)
+        .string_right$ = replace_regex$(.string$, ".*?('.v$')", "", 1)
+        .string_right_ccv$ = replace_regex$(.string_right$, "('.v$').*", "\1", 1)
+        .string_right_cc$ = replace_regex$(.string_right$, "('.v$').*", "", 1)
+        .is_any_vowel = index_regex(.string_right_ccv$, "('.v$')")
+        if not .is_any_vowel
+            goto ADD_SYLLABLE
+        endif
+                
+        if length(.string_right_cc$) = 0
+            .syllable$ = .string_left$
+        else
+            @tokenizer.string2segments: .string_right_cc$, .complex_segments$, ""
+            .strID_segments = selected("Strings")
+            .number_of_consonants = Get number of strings
+            if .number_of_consonants = 1
+                .syllable$ = .string_left$
+            elsif .number_of_consonants > 1
+                .coda$ = Get string: 1
+                .syllable$ = .string_left$ + .coda$
+            endif
+            removeObject: .strID_segments
+        endif
+        
+        label ADD_SYLLABLE
+        .string$ = replace$(.string$, .syllable$, "", 1)
+        
+        if .syllable$ <> ""
+            selectObject: .strID_syllables 
+            Insert string: 0, .syllable$
+        endif
+    until length(.string$) = 0
+endproc
+
+procedure tokenizer.string2segments: .string_var$, .complex_segment_unit$, .erase_char$
+    # Tokenize a string variable into segments. The string variable is splitted from left to right based on the segments that are parts of it. Since a segment unit could be formed by more than one character, we look for the complex segments at first, then the simple segments (one character).
+    ## Input: a string variable
+    ## Output: a Strings object which contains segments
+    ## Args:
+    ## .string_var$: the input of this procedure
+    ## .complex_segment_unit$: a regex expressions which contains the complex segments
+    ## .erase_char$: 
+
+    .string_var$ = replace$(.string_var$, " ", "", 0)
+    .string_var$ = replace_regex$(.string_var$, .erase_char$, "", 0)
+    .strID = Create Strings as characters: ""
+    repeat
+        if length(.complex_segment_unit$) and index_regex(.string_var$, "^('.complex_segment_unit$')")
+            .splitted$ = replace_regex$(.string_var$, "^('.complex_segment_unit$')", "& ", 1)
+        else
+            .splitted$ = replace_regex$(.string_var$, "^.", "& ", 1)
+        endif
+        .string_var$ = replace_regex$(.splitted$, ".* ", "",1)
+        .segment$ = replace_regex$(.splitted$, " .*", "", 1)
+        if .segment$ <> ""
+            Insert string: 0, .segment$
+        endif
+    until length(.string_var$) = 0
+endproc
+
+procedure tokenizer.string2words: .string_var$, .erase_char$
+    # Tokenize a string variable into words. The tokenized units will be identified because they are delimited by white spaces.
+    ## Input: a string variable
+    ## Output: a Strings object which contains words
+    ## Args:
+    ## .string_var$
+    ## .erase_char$
+    .string_var$ = replace_regex$(.string_var$, .erase_char$, "", 0)
+    .return = Create Strings as tokens: .string_var$ 
+endproc
+
+procedure tokenizer.Strings2TextGrid: .tier, .interval_tmid
+    # Put a set of strings from Strings into a TextGrid target interval. The target interval is divided equally as many times as strings.
+    ## Input: Strings object
+    ## Output: TextGrid interval target
+    ## Args:
+    ### .tier
+    ## .interval_tmid
+    .tgID = selected("TextGrid")
+    .strID = selected("Strings")
+    
+    selectObject: .tgID
+    .interval= Get interval at time: .tier, .interval_tmid
+    .tmin = Get start time of interval: .tier, .interval
+    .tmax = Get end time of interval: .tier, .interval
+    .tdur = .tmax - .tmin
+    .time_boundary = .tmin
+        
+    selectObject: .strID
+    .nStrings = Get number of strings
+    .interval_length = .tdur/.nStrings
+
+    for .iString to .nStrings
+        .time_boundary += .interval_length 
+
+        selectObject: .strID
+        .token$ = Get string: .iString
+
+        selectObject: .tgID
+        .interval = Get low interval at time: .tier, .tmax
+        Set interval text: .tier, .interval, .token$
+        if .iString != .nStrings
+            Insert boundary: .tier, .time_boundary
+        endif
+    endfor
+endproc

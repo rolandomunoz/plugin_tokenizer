@@ -1,0 +1,43 @@
+#Description: This script stablish a protocol to retrive and modify field information from "preferences folder files". 
+
+procedure config.init: .file_dir_preferences$
+    file_dir_preferences$ = .file_dir_preferences$
+    .stringsID_preferences = Read Strings from raw text file: .file_dir_preferences$
+    .n_lines = Get number of strings
+    for .i_line to .n_lines
+        .line$ = Get string: .i_line
+        .temp_field_name$ = replace_regex$(.line$, ": .*", "",1)
+        .temp_field_content$= replace_regex$(.line$, ".*: ", "", 1)    
+        .return$[.temp_field_name$] = .temp_field_content$ 
+    endfor
+    removeObject: .stringsID_preferences
+endproc
+
+procedure config.get_field: .field_name$
+    if variableExists("config.init.return$[""'.field_name$'""]")
+        .return$ = config.init.return$[.field_name$]
+    else
+        pauseScript: "'.field_name$' could not be found."
+        .return$ = "Not found"
+    endif
+endproc
+
+procedure config.set_field: .field_name$, .field_content$
+    .file_dir_preferences$ = config.init.file_dir_preferences$
+    .file_preferences = Read Strings from raw text file: .file_dir_preferences$
+    .n_lines = Get number of strings
+    .i_line = 0
+    repeat
+        .i_line+=1
+        .line$ = Get string: .i_line
+        .temp_field_name$ = replace_regex$(.line$, ": .*", "",1)
+        .temp_field_content$= replace_regex$(.line$, ".*: ", "", 1)
+        if .temp_field_name$ == .field_name$
+            .line$ = .temp_field_name$+ ": " + .field_content$
+            Set string: .i_line, .line$
+            Save as raw text file: file_dir_preferences$
+            .i_line = .n_lines
+        endif
+    until .i_line = .n_lines 
+    removeObject: .file_preferences
+endproc
