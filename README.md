@@ -6,5 +6,8 @@ The Figure from below is an example how this plug-in works. The three topmost ti
 ![Imgur](http://i.imgur.com/2SN7S6Il.png)
 
 ## More information
+You can visit the [Wiki project](https://github.com/rolandomunoz/plugin_tokenizer/wiki), so you can get more documentation.
 
-In [Getting started](https://github.com/rolandomunoz/plugin_tokenizer/wiki/Getting-Started) you will find a quick guide. 
+In [Getting started](https://github.com/rolandomunoz/plugin_tokenizer/wiki/Getting-Started) you will find a guide that walk through the basics of this plug-in.
+
+In [How it works](https://github.com/rolandomunoz/plugin_tokenizer/wiki/How-it-works%3F) you will get an idea about the internal process that are taken. (under construction)
