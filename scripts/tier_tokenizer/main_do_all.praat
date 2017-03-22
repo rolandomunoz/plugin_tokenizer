@@ -49,29 +49,41 @@ endif
 #Open TextGrids one by one
 strID_files = Create Strings as file list: "fileList", textGrid_folder_directory$ + "/*.TextGrid"
 nStrings = Get number of strings
+number_of_unprocessed_files = 0
 for iString to nStrings
+    selectObject: strID_files
     tg_name$ = Get string: iString
     tg_path_src$ = textGrid_folder_directory$ + "/" + tg_name$
     tg_path_dst$ = destination_directory$ + "/" + tg_name$
+    
     tgID = Read from file: tg_path_src$
+    temp_input_tier$ = input_tier$
+
     # Check for the appropiate structure
-    @tg.get_tier_number: input_tier$
+    @tg.get_tier_number: temp_input_tier$
     if tg.get_tier_number.return
         if add_word_tier
-            runScript: "add_word_tier.praat", input_tier$
-            input_tier$ = "word"
+            runScript: "add_word_tier.praat", temp_input_tier$
+            temp_input_tier$ = "word"
         endif
 
         if add_syllable_tier
-           runScript: "add_syllable_tier.praat", input_tier$
-            input_tier$ = "syllable"
+           runScript: "add_syllable_tier.praat", temp_input_tier$
+            temp_input_tier$ = "syllable"
         endif
 
         if add_segment_tier
-            runScript: "add_segment_tier.praat", input_tier$
+            runScript: "add_segment_tier.praat", temp_input_tier$
         endif
         Save as text file: tg_path_dst$
+    else
+        number_of_unprocessed_files += 1
     endif
     removeObject: tgID
 endfor
 removeObject: strID_files
+
+pauseScript: "The tokenization process is done."
+if number_of_unprocessed_files
+    pauseScript: "'number_of_unprocessed_files' TextGrid(s) couldn't be tokenized. Check the input tier."
+endif
