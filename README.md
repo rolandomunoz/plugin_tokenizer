@@ -4,7 +4,7 @@ A praat plugin which can tokenize an input tier into a set of word, syllable, or
 
 The figures from below show how this plug-in works. Here, in the top figure, the input tier is called text and it contains phrases from shipibo, a language spoken in Peru. The bottom figure illustrates the output where the three topmost tiers (segment, syllable, word) were created from the input tier. We can also observe that the segmented units are delimited by boundaries.
 
-![Imgur](http://i.imgur.com/c6nUlA6.png)
+![Imgur](http://i.imgur.com/c6nUlA6l.png)
 
 ![Imgur](http://i.imgur.com/2SN7S6Il.png)
 
