@@ -1,6 +1,6 @@
 # Tokenizer
 
-A praat plugin which can tokenize an input tier into a set of word, syllable, or segment units. These are stored in new tiers.
+A praat plugin which can tokenize a specified tier into a set of word, syllable, or segment units. These are stored in new tiers.
 
 The figures from below show how this plug-in works. Here, in the top figure, the input tier is called `text` and it contains phrases from shipibo, a language spoken in Peru. The bottom figure illustrates the result, where the tiers `segment`, `syllable`, and `word` were created. We can also observe that the segmented units are delimited by boundaries.
 
