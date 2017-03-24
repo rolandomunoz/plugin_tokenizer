@@ -6,7 +6,7 @@ The figures from below show how this plug-in works. Here, in the top figure, the
 
 ![Imgur](http://i.imgur.com/c6nUlA6.png)
 
-[Imgur](http://i.imgur.com/c6nUlA6l.png)
+![Imgur](http://i.imgur.com/c6nUlA6l.png)
 
 ## More information
 You can visit the [Wiki project](https://github.com/rolandomunoz/plugin_tokenizer/wiki) to get more information.
