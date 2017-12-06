@@ -1,43 +1,80 @@
+# Copyright 2017 Rolando Muñoz Aramburú
+
 #Description: This script stablish a protocol to retrive and modify field information from "preferences folder files". 
-
-procedure config.init: .file_dir_preferences$
-    file_dir_preferences$ = .file_dir_preferences$
-    .stringsID_preferences = Read Strings from raw text file: .file_dir_preferences$
-    .n_lines = Get number of strings
-    for .i_line to .n_lines
-        .line$ = Get string: .i_line
-        .temp_field_name$ = replace_regex$(.line$, ": .*", "",1)
-        .temp_field_content$= replace_regex$(.line$, ".*: ", "", 1)    
-        .return$[.temp_field_name$] = .temp_field_content$ 
-    endfor
-    removeObject: .stringsID_preferences
+#! ~~~ params
+#! in:
+#!   .file$: the file directory where local variables are stored
+#! out:
+#!   .return$: a dictionary which contains the variables names and their values
+#! selection:
+#!   in:
+#!     nothing
+#!   out:
+#!     nothing
+#! ~~~
+#!
+#! Read a file with local variables and store them in a dictionary
+#!
+procedure config.init: .file$
+  .strID = Read Strings from raw text file: .file$
+  .n = Get number of strings
+  for .i to .n
+    .line$ = Get string: .i
+    .fieldName$ = replace_regex$(.line$, ": .*", "",1)
+    .fieldContent$= replace_regex$(.line$, ".*: ", "", 1)    
+    .return$[.fieldName$] = .fieldContent$ 
+  endfor
+  removeObject: .strID
 endproc
 
-procedure config.get_field: .field_name$
-    if variableExists("config.init.return$[""'.field_name$'""]")
-        .return$ = config.init.return$[.field_name$]
-    else
-        pauseScript: "'.field_name$' could not be found."
-        .return$ = "Not found"
+#! ~~~ params
+#! in:
+#!   .fieldName$: the name of the key
+#! out:
+#!   .return$: the value
+#! selection:
+#!   in:
+#!     nothing
+#!   out:
+#!     nothing
+#! ~~~
+#!
+#! Get the value of the key
+#!
+procedure config.getField: .fieldName$
+  if variableExists("config.init.return$[""'.fieldName$'""]")
+    .return$ = config.init.return$[.fieldName$]
+  else
+    exitScript: "@config.getField: '.fieldName$' could not be found."
+  endif
+endproc
+
+#! ~~~ params
+#! in:
+#!   .fieldName$: the name of the key
+#!   .fieldContent$: a string that will be stored in the key
+#! selection:
+#!   in:
+#!     nothing
+#!   out:
+#!     nothing
+#! ~~~
+#!
+#! Get the value of the key
+#!
+procedure config.setField: .fieldName$, .fieldContent$
+  .file$ = config.init.file$
+  .strID = Read Strings from raw text file: .file$
+  .n = Get number of strings
+  for .i to .n
+    .line$ = Get string: .i
+    .f_fieldName$ = replace_regex$(.line$, ": .*", "",1)
+    if .f_fieldName$ == .fieldName$
+      .line$ = .f_fieldName$+ ": " + .fieldContent$
+      Set string: .i, .line$
+      Save as raw text file: .file$
+      .i = .n
     endif
-endproc
-
-procedure config.set_field: .field_name$, .field_content$
-    .file_dir_preferences$ = config.init.file_dir_preferences$
-    .file_preferences = Read Strings from raw text file: .file_dir_preferences$
-    .n_lines = Get number of strings
-    .i_line = 0
-    repeat
-        .i_line+=1
-        .line$ = Get string: .i_line
-        .temp_field_name$ = replace_regex$(.line$, ": .*", "",1)
-        .temp_field_content$= replace_regex$(.line$, ".*: ", "", 1)
-        if .temp_field_name$ == .field_name$
-            .line$ = .temp_field_name$+ ": " + .field_content$
-            Set string: .i_line, .line$
-            Save as raw text file: file_dir_preferences$
-            .i_line = .n_lines
-        endif
-    until .i_line = .n_lines 
-    removeObject: .file_preferences
+  endfor
+  removeObject: .strID
 endproc

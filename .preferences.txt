@@ -1,0 +1,16 @@
+doall_TextGrid_folder_directory: /home/rolando/Desktop/tokenizer_test/
+doall_destination_directory: /home/rolando/Desktop/tokenizer_test/output
+doall_src_tier: ph
+doall_add_segment_tier: 1
+doall_add_syllable_tier: 1
+doall_add_word_tier: 0
+each_src_tier: txt
+each_add_segment_tier: 1
+each_add_syllable_tier: 1
+each_add_word_tier: 1
+vowel: a e i o u
+consonant.complex: ch sh
+phonemes: ch sh a e i o u
+syllable.complex.onset: 
+syllable.complex.onset.all: ch sh
+coda.boolean: 1

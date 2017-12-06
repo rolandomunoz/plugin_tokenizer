@@ -1,10 +1,4 @@
-clearinfo
-stringsID = Read Strings from raw text file: "./../cpran.yaml"
-nStrings = Get number of strings
+# Copyright 2017 Rolando Muñoz
 
-for iString to nStrings
-    line$ = Get string: iString
-    appendInfoLine: line$
-endfor
-
-removeObject: stringsID
+plugin_info$ = readFile$("../.about.info")
+writeInfoLine: plugin_info$

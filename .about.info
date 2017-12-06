@@ -1,0 +1,12 @@
+Plugin: tokenizer
+Author: Rolando Muñoz A. <rmunoz@gmail.com>
+Homepage: https://gitlab.com/praat_plugins_rma/plugin_tokenizer
+Version: 1.0.0
+Last modified: 20-11-2017
+Description:
+  - Segment text into words, syllables and segments.
+Depends:
+  - Praat: 6.30.0+
+License: GPL3
+How to cite: 
+ - Muñoz A., Rolando (2017). Tokenizer[Praat plug-in]. Version 1.0.0, retrived 20 November 2017 from https://gitlab.com/praat_plugins_rma/plugin_tokenizer

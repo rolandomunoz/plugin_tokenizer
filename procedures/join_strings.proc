@@ -1,0 +1,25 @@
+# Copyright 2017 Rolando Muñoz Aramburú
+#Description: stringAsSyllables
+#! ~~~ params
+#! in:
+#!  out:
+#!    .separator$: is the char that separates the strings that come from Strings object.
+#!    .return: the ID of the Strings object whit the sorted strings
+#! selection:
+#!  in:
+#!  String: >
+#!    A Strings object
+#! ~~~
+#!
+#! Join all strings from a Strings object and put them inside a variable
+#!
+procedure joinStrings: .separator$
+  .str = selected("Strings")
+  .nStrings = Get number of strings
+  .return$ = ""
+  for .iString to .nStrings
+    .temp$ = object$[.str, .iString]
+    .return$ = .return$ + .temp$ + .separator$ 
+  endfor
+  .return$ = .return$ - .separator$
+endproc

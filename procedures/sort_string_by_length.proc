@@ -1,0 +1,39 @@
+# Copyright 2017 Rolando Muñoz Aramburú
+#Description: stringAsSyllables
+#! ~~~ params
+#! in:
+#!  out:
+#!    .ascending: sort strings in ascending order according to their length
+#!    .return: the ID of the Strings object whit the sorted strings
+#! selection:
+#!  in:
+#!  String: >
+#!    A Strings object
+#!  out:
+#!  String: >
+#!    A Strings object containing all strings sorted by their length
+#! ~~~
+#!
+#! Create a Strings object with all of its elements sorted by string length
+#!
+procedure sortStringByLength: .ascending
+  .str = selected("Strings")
+  .n = Get number of strings
+  .tb = Create Table with column names: "table", 0, "string length"
+  for .i to .n
+    .string$ = object$[.str, .i]
+    .length = length(.string$)
+    .length = if .ascending > 0 then .length else -1*.length fi
+    Append row
+    Set string value: object[.tb].nrow, "string", .string$
+    Set numeric value: object[.tb].nrow, "length", .length
+  endfor
+  Sort rows: "length string"
+  .string$ = ""
+  for .i to object[.tb].nrow
+    .temp$ = object$[.tb, .i, "string"]
+    .string$ = .string$ + .temp$ + " "
+  endfor
+  removeObject: .tb
+  .return = Create Strings as tokens: .string$
+endproc
