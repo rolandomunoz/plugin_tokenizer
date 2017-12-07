@@ -1,48 +1,62 @@
 # Tokenizer
 
-Segment an annotation at different levels (words, syllables and segments) and store the results as new tiers.
+This is a Praat plug-in which segments TextGrid annotations into segments, syllables or words. 
+The resulting segmentation is stored as a new tier whithin the same TextGrid.
 
-# Getting Started
+## Getting started
 
-## 1. How to set it up
-**Step 1:** Let the Plug-in to know which segments are used in your transcriptions. In the Praat menu, go to `Tokenizer > Settings > Set segments...`
+### Prerequisites
 
-![Imgur](http://i.imgur.com/iFkyhIR.png)
+- Praat 6.0.30 or more (download [here](http://www.fon.hum.uva.nl/praat/download_win.html))
 
-**Step 2:** A dialog box will appear. In the first box, write all the vowels that are used in your transcriptions. In the second box, write only the consonants that are supported by 2 or more [characters](https://en.wikipedia.org/wiki/Character_(computing)). In both cases, you will need to separate the segment units using white spaces. When this is done, click on _Continue_. Now, you are ready to use the Plug-in. 
+### Install
 
-In the Figure, `a~ e~ i~ o~ u~` represent nasal vowels, while `tS ts` stands for affricates. 
+### Set-up
 
-![Imgur](http://i.imgur.com/3i01aGv.png)
+In the Object window, go to `Praat > Tokenize > Settings...`, a dialog box will appear. 
 
-## 2. How to use it
-
-The Tokenizer plug-in provides you methods to work with TextGrids either one-by-one or collectively.  
-
-### 2.1. Working with TextGrids one-by-one
-
-In order you can work with one TextGrid at a time, follow these steps:
-
-**Step 1:** Open a TextGrid file in the Praat Objects window. [See an example](http://i.imgur.com/c6nUlA6l.png)
- 
-**Step 2:** When you select it, an `Add tokenized tier...` button will appear in the bottom part of the Dynamic menu. Click on it.
-
-![Imgur](http://i.imgur.com/62zgxvFl.png)
-
-**Step 3:** A dialog box will pop up. Here, write the name of tier that will be used as the starting point for the segmentation task. Then, check which segmented tier you would like to add to your TextGrid. Press on _Continue_
-
-![Imgur](http://i.imgur.com/HV0O1d2.png)
-
-**Step 4:** Open your TextGrid in the Editor window. Look, it is now segmented! [See an example](http://i.imgur.com/2SN7S6Il.png)
-
-### 2.2. Working with TextGrids collectively
+![Screenshot_from_2017-12-06_22-15-53](/uploads/74cdb6a7496cb2c3e3eb8a53613b99ad/Screenshot_from_2017-12-06_22-15-53.png)
 
 
-## 3. Practice yourself
-Here, you will find a collection of TextGrids. Download the files and practice.
+### How to use it?
 
-* [quechua](https://cloud.openmailbox.org/index.php/s/GLtRU3IZU01MzRm)
+Once you are done with the settings, you are ready to process your own TextGrids.
+Before starting, remember that you need to provide an interval tier as an input for this plug-in to work. Here is an example.
 
-* [shipibo](https://cloud.openmailbox.org/index.php/s/mC8Czokl9BTwFpK)
+![004](/uploads/919d0228a12ac452dcd68b9a5e264626/004.png)
 
-* [urarina](https://cloud.openmailbox.org/index.php/s/S6DLPCnivLSWbn4)
+With this plug-in, you can segment TextGrids in the Object window and those stored in a folder.
+
+#### From the Object window...
+
+First, select those TextGrids that you want to segment. Then, in the *dynamic menu*, you will see a botton called `Add tokenized tier...`
+
+![Dynamic menu](/uploads/c1337f0256791b8c9958c349e80c15db/002.png)
+
+When you click on it, you will see a dialog box. In `Input tier`, write the name of the tier where your annotations are stored. 
+Then, check which segmentation levels will be generated. Finally, press on **Continue**. The TexGrids are now segmented.
+
+![Screenshot_from_2017-12-06_23-17-36](/uploads/10b5682dee9526f6c8ef5559f1b45575/Screenshot_from_2017-12-06_23-17-36.png)
+
+#### From a folder...
+
+In the Praat menu, go to `Praat > Tokenizer > Tokenize TextGrids from folder...` 
+You will see a dialog box similar to one shown in the previous case. 
+In the `TextGrid folder directory` put the directory where your TextGrids are located in your machine.
+In `Destination directory`, copy the path where the resulting files will be stored.
+Then, complete the other fields as explained before and press on *Continue*. The resulting files should be in the destiny directory.
+
+![Screenshot_from_2017-12-06_23-12-53](/uploads/573194ae73c7ba9beac1a298b9598b32/Screenshot_from_2017-12-06_23-12-53.png)
+
+## Author
+
+- Rolando Muñoz Aramburú
+
+## License
+
+This project is licensed under the GNU GPL terms - see the [LICENSE.md](https://gitlab.com/praat_plugins_rma/plugin_tokenizer/blob/master/LICENSE)
+ file for details.
+
+## How to cite?
+
+`Muñoz A., Rolando (2017). Tokenizer[Praat plug-in]. Version 1.0.0, retrived 20 November 2017 from https://gitlab.com/praat_plugins_rma/plugin_tokenizer`
