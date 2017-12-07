@@ -15,15 +15,14 @@ The resulting segmentation is stored as a new tier whithin the same TextGrid.
 
 In the Object window, go to `Praat > Tokenize > Settings...`, a dialog box will appear. 
 
-![Screenshot_from_2017-12-06_22-15-53](/uploads/74cdb6a7496cb2c3e3eb8a53613b99ad/Screenshot_from_2017-12-06_22-15-53.png)
-
+<img src="/uploads/74cdb6a7496cb2c3e3eb8a53613b99ad/Screenshot_from_2017-12-06_22-15-53.png" width="40%">
 
 ### How to use it?
 
 Once you are done with the settings, you are ready to process your own TextGrids.
 Before starting, remember that you need to provide an interval tier as an input for this plug-in to work. Here is an example.
 
-![004](/uploads/919d0228a12ac452dcd68b9a5e264626/004.png)
+<img src="/uploads/919d0228a12ac452dcd68b9a5e264626/004.png" width="50%">
 
 With this plug-in, you can segment TextGrids in the Object window and those stored in a folder.
 
@@ -31,7 +30,7 @@ With this plug-in, you can segment TextGrids in the Object window and those stor
 
 First, select those TextGrids that you want to segment. Then, in the *dynamic menu*, you will see a botton called `Add tokenized tier...`
 
-![Dynamic menu](/uploads/c1337f0256791b8c9958c349e80c15db/002.png)
+<img src="/uploads/c1337f0256791b8c9958c349e80c15db/002.png" width="30%">
 
 When you click on it, you will see a dialog box. In `Input tier`, write the name of the tier where your annotations are stored. 
 Then, check which segmentation levels will be generated. Finally, press on **Continue**. The TexGrids are now segmented.
