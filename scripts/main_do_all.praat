@@ -3,7 +3,7 @@ include ./../procedures/config.proc
 include ./../procedures/get_tier_number.proc
 
 # Read variables from preferences.txt
-@config.init: "./../.preferences.txt"
+@config.init: "./../preferences.txt"
 
 tg_folder_src$ = config.init.return$["doall_TextGrid_folder_directory"]
 tg_folder_dst$ = config.init.return$["doall_destination_directory"]

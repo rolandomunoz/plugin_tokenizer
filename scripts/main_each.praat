@@ -8,7 +8,7 @@ for i to n
 endfor
 
 # Read variables from preferences.txt
-@config.init: "./../.preferences.txt"
+@config.init: "./../preferences.txt"
 
 src_tier$ = config.init.return$["each_src_tier"]
 add_segment_tier = number(config.init.return$["each_add_segment_tier"])
