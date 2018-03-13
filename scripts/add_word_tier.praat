@@ -11,7 +11,7 @@ src_tier$ = input_tier$
 
 # Get TextGrid info
 tg = selected("TextGrid")
-
+tg_name$ = selected$("TextGrid")
 # Get the source tier and create a duplicate tier
 
 ## Get tier number from tier name
@@ -22,7 +22,7 @@ src_tier = getTierNumber.return[src_tier$]
 
 ## If the tier name is not found, the exit the script
 if not src_tier
-  writeInfoLine: "The file ", tg_name$, ".TextGrid does not contain the tier, ", src_tier$, "."
+  writeInfoLine: "The file ", tg_name$, ".TextGrid does not contain the tier <", src_tier$, ">."
   exitScript()
 endif
 

@@ -1,10 +1,10 @@
 doall_TextGrid_folder_directory: /media/rolando/EA46ADB846AD8643/Users/Public/Data/urarina/ura_data/fieldwork_corrientes_2018/datos_fase_1/data_raw/2018-02-11/FOLDER09
-doall_destination_directory: /media/rolando/EA46ADB846AD8643/Users/Public/Data/urarina/ura_data/fieldwork_corrientes_2018/datos_fase_1/data_raw/2018-02-11/FOLDER09
+doall_destination_directory: /home/rolando/Desktop/Untitled Folder
 doall_src_tier: phrase.ph
 doall_add_segment_tier: 1
 doall_add_syllable_tier: 1
 doall_add_word_tier: 1
-each_src_tier: phrase
+each_src_tier: aeeoao
 each_add_segment_tier: 1
 each_add_syllable_tier: 1
 each_add_word_tier: 1
