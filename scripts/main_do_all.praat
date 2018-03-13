@@ -8,7 +8,7 @@ include ./../procedures/get_tier_number.proc
 tg_folder_src$ = config.init.return$["doall_TextGrid_folder_directory"]
 tg_folder_dst$ = config.init.return$["doall_destination_directory"]
 src_tier$ = config.init.return$["doall_src_tier"]
-add_segment_tier = number(config.init.return$["doall_src_tier"])
+add_segment_tier = number(config.init.return$["doall_add_segment_tier"])
 add_syllable_tier = number(config.init.return$["doall_add_syllable_tier"])
 add_word_tier = number(config.init.return$["doall_add_word_tier"])
 
@@ -58,7 +58,7 @@ for iFile to nFiles
 
       if add_syllable_tier
         runScript: "add_syllable_tier.praat", temp_input_tier$
-        temp_input_tier$ = "syllable"
+        temp_input_tier$ = "syll"
       endif
 
       if add_segment_tier
