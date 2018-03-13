@@ -1,16 +1,16 @@
-doall_TextGrid_folder_directory: /home/rolando/Desktop/tokenizer_test/
-doall_destination_directory: /home/rolando/Desktop/tokenizer_test/output
-doall_src_tier: ph
+doall_TextGrid_folder_directory: /media/rolando/EA46ADB846AD8643/Users/Public/Data/urarina/ura_data/fieldwork_corrientes_2018/datos_fase_1/data_raw/2018-02-11/FOLDER09
+doall_destination_directory: /media/rolando/EA46ADB846AD8643/Users/Public/Data/urarina/ura_data/fieldwork_corrientes_2018/datos_fase_1/data_raw/2018-02-11/FOLDER09
+doall_src_tier: phrase.ph
 doall_add_segment_tier: 1
 doall_add_syllable_tier: 1
-doall_add_word_tier: 0
-each_src_tier: txt
+doall_add_word_tier: 1
+each_src_tier: phrase
 each_add_segment_tier: 1
 each_add_syllable_tier: 1
 each_add_word_tier: 1
-vowel: a e i o u
-consonant.complex: ch sh
-phonemes: ch sh a e i o u
+vowel: 11 1a a1 aa au e1 ee ia ia ii ua uu 1 a e i u
+consonant.complex: tS
+phonemes: 11 1a a1 aa au e1 ee ia ia ii tS ua uu 1 a e i u
 syllable.complex.onset: 
-syllable.complex.onset.all: ch sh
+syllable.complex.onset.all: tS
 coda.boolean: 1
