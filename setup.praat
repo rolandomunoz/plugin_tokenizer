@@ -1,14 +1,13 @@
 ##Static menu
-Add menu command: "Objects", "Praat", "-", "", 0, ""
-Add menu command: "Objects", "Praat", "Tokenizer", "", 0, ""
+Add menu command: "Objects", "Goodies", "Tokenizer", "", 0, ""
 
-Add menu command: "Objects", "Praat", "-", "Tokenizer", 1, ""
-Add menu command: "Objects", "Praat", "Tokenize TextGrids from folder...", "Tokenizer", 1, "scripts/main_do_all.praat"
+Add menu command: "Objects", "Goodies", "-", "Tokenizer", 1, ""
+Add menu command: "Objects", "Goodies", "Tokenize TextGrids from folder...", "Tokenizer", 1, "scripts/main_do_all.praat"
 
-Add menu command: "Objects", "Praat", "Settings...", "Settings", 1, "./scripts/settings.praat" 
+Add menu command: "Objects", "Goodies", "Settings...", "Settings", 1, "./scripts/settings.praat" 
 
-Add menu command: "Objects", "Praat", "-", "Tokenizer", 1, ""
-Add menu command: "Objects", "Praat", "About...", "Tokenizer", 1, "./scripts/about.praat"
+Add menu command: "Objects", "Goodies", "-", "Tokenizer", 1, ""
+Add menu command: "Objects", "Goodies", "About...", "Tokenizer", 1, "./scripts/about.praat"
 
 # Dynamic menu
 ## Object class
