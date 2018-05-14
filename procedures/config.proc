@@ -1,80 +1,26 @@
-# Copyright 2017 Rolando Muñoz Aramburú
+# written by Rolando Munoz (2018-05-14)
+# Description: a set of procedures to read and modify preference files
 
-#Description: This script stablish a protocol to retrive and modify field information from "preferences folder files". 
-#! ~~~ params
-#! in:
-#!   .file$: the file directory where local variables are stored
-#! out:
-#!   .return$: a dictionary which contains the variables names and their values
-#! selection:
-#!   in:
-#!     nothing
-#!   out:
-#!     nothing
-#! ~~~
-#!
-#! Read a file with local variables and store them in a dictionary
-#!
-procedure config.init: .file$
-  .strID = Read Strings from raw text file: .file$
+procedure config.read: .file$
+  .return$ = readFile$(.file$)
+  .strings = Read Strings from raw text file: config.read.file$
   .n = Get number of strings
   for .i to .n
-    .line$ = Get string: .i
+    .line$ = object$[.strings, .i]
     .fieldName$ = replace_regex$(.line$, ": .*", "",1)
-    .fieldContent$= replace_regex$(.line$, ".*: ", "", 1)    
-    .return$[.fieldName$] = .fieldContent$ 
+    .fieldContent$ = replace_regex$(.line$, ".*: ", "", 1) 
+    .return$[.fieldName$] = .fieldContent$
+    .return[.fieldName$] = number(.fieldContent$)
   endfor
-  removeObject: .strID
+  removeObject: .strings
 endproc
 
-#! ~~~ params
-#! in:
-#!   .fieldName$: the name of the key
-#! out:
-#!   .return$: the value
-#! selection:
-#!   in:
-#!     nothing
-#!   out:
-#!     nothing
-#! ~~~
-#!
-#! Get the value of the key
-#!
-procedure config.getField: .fieldName$
-  if variableExists("config.init.return$[""'.fieldName$'""]")
-    .return$ = config.init.return$[.fieldName$]
-  else
-    exitScript: "@config.getField: '.fieldName$' could not be found."
-  endif
+procedure config.save
+  writeFile: config.read.file$, config.read.return$ 
 endproc
 
-#! ~~~ params
-#! in:
-#!   .fieldName$: the name of the key
-#!   .fieldContent$: a string that will be stored in the key
-#! selection:
-#!   in:
-#!     nothing
-#!   out:
-#!     nothing
-#! ~~~
-#!
-#! Get the value of the key
-#!
-procedure config.setField: .fieldName$, .fieldContent$
-  .file$ = config.init.file$
-  .strID = Read Strings from raw text file: .file$
-  .n = Get number of strings
-  for .i to .n
-    .line$ = Get string: .i
-    .f_fieldName$ = replace_regex$(.line$, ": .*", "",1)
-    if .f_fieldName$ == .fieldName$
-      .line$ = .f_fieldName$+ ": " + .fieldContent$
-      Set string: .i, .line$
-      Save as raw text file: .file$
-      .i = .n
-    endif
-  endfor
-  removeObject: .strID
+procedure config.set: .fieldName$, .replace$
+  .fieldName$ = replace$(.fieldName$, ".", "\.", 0); From regex to raw text
+  config.read.return$ = replace_regex$(config.read.return$, "(\n|^)('.fieldName$': )(.*)(\n|$)", "\1\2'.replace$'\4", 1) ;Set field value
+  .return$ = config.read.return$
 endproc

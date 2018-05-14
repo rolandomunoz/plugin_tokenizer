@@ -1,4 +1,4 @@
-# Copyright 2017 Rolando Muñoz Aramburú
+# Copyright 2017 Rolando Munoz
 
 include ./../procedures/string_as_phonemes.proc
 include ./../procedures/get_tier_number.proc

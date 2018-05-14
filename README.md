@@ -7,7 +7,7 @@ The resulting segmentation is stored as a new tier whithin the same TextGrid.
 
 ### Prerequisites
 
-- Praat 6.0.30 or more (download [here](http://www.fon.hum.uva.nl/praat/download_win.html))
+- Praat 6.0.40 or la (download [here](http://www.fon.hum.uva.nl/praat/download_win.html))
 
 ### Install
 
@@ -28,22 +28,22 @@ With this plug-in, you can segment TextGrids in the Object window and those stor
 
 #### From the Object window...
 
-First, select those TextGrids that you want to segment. Then, in the *dynamic menu*, you will see a botton called `Add tokenized tier...`
+First, select those TextGrids that you want to segment. Then, go to `TextGrid: Add tokenized tier...`
 
 <img src="/uploads/c1337f0256791b8c9958c349e80c15db/002.png" width="30%">
 
 When you click on it, you will see a dialog box. In `Input tier`, write the name of the tier where your annotations are stored. 
-Then, check which segmentation levels will be generated. Finally, press on **Continue**. The TexGrids are now segmented.
+Then, check the segmentation levels to be be generated. Finally, press on **Apply** or **Ok**. The TexGrids are now segmented!
 
 ![Screenshot_from_2017-12-06_23-17-36](/uploads/10b5682dee9526f6c8ef5559f1b45575/Screenshot_from_2017-12-06_23-17-36.png)
 
 #### From a folder...
 
-In the Praat menu, go to `Praat > Tokenizer > Tokenize TextGrids from folder...` 
+In the Praat menu, go to `Praat > Tokenizer > Tokenize(do all)...` 
 You will see a dialog box similar to one shown in the previous case. 
-In the `TextGrid folder directory` put the directory where your TextGrids are located in your machine.
-In `Destination directory`, copy the path where the resulting files will be stored.
-Then, complete the other fields as explained before and press on *Continue*. The resulting files should be in the destiny directory.
+In the `Folder with annotation files` put the directory where your TextGrids are located in your machine.
+In `Save results in`, copy the path where the resulting files will be stored.
+Then, complete the other fields as explained before and press on **Apply** or **Ok**. The resulting files should be in the destiny directory.
 
 ![Screenshot_from_2017-12-06_23-12-53](/uploads/573194ae73c7ba9beac1a298b9598b32/Screenshot_from_2017-12-06_23-12-53.png)
 
@@ -58,4 +58,4 @@ This project is licensed under the GNU GPL terms - see the [LICENSE.md](https://
 
 ## How to cite?
 
-`Muñoz A., Rolando (2017). Tokenizer[Praat plug-in]. Version 1.0.0, retrived 20 November 2017 from https://gitlab.com/praat_plugins_rma/plugin_tokenizer`
+`Muñoz A., Rolando (2018). Tokenizer[Praat plug-in]. Version 1.0.1, retrived 14 May 2018 from https://gitlab.com/praat_plugins_rma/plugin_tokenizer`

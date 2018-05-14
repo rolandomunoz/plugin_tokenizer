@@ -1,50 +1,44 @@
 #Include libraries
-include ./../procedures/config.proc
-include ./../procedures/get_tier_number.proc
+include ../procedures/config.proc
+include ../procedures/get_tier_number.proc
 
 # Read variables from preferences.txt
-@config.init: "./../preferences.txt"
+@config.read: "../preferences.txt"
 
-tg_folder_src$ = config.init.return$["doall_TextGrid_folder_directory"]
-tg_folder_dst$ = config.init.return$["doall_destination_directory"]
-src_tier$ = config.init.return$["doall_src_tier"]
-add_segment_tier = number(config.init.return$["doall_add_segment_tier"])
-add_syllable_tier = number(config.init.return$["doall_add_syllable_tier"])
-add_word_tier = number(config.init.return$["doall_add_word_tier"])
-
-beginPause: "tokenizer"
-  comment: "Set the directories"
-  sentence: "TextGrid folder directory", tg_folder_src$
-  sentence: "Destination directory", tg_folder_dst$
+beginPause: "Tokenize (Do all)"
+  sentence: "Folder with annotation files", config.read.return$["doall_TextGrid_folder_directory"]
+  sentence: "Save results in", config.read.return$["doall_destination_directory"]
   comment: "Add tokenized tiers"
-  sentence: "Input tier", src_tier$
-  boolean: "Add word tier", add_word_tier
-  boolean: "Add syllable tier", add_syllable_tier
-  boolean: "Add segment tier", add_segment_tier
-clicked= endPause: "Continue", "Quit", 1
+  sentence: "Input tier", config.read.return$["doall_src_tier"]
+  boolean: "Add segment tier", config.read.return["doall_add_segment_tier"]
+  boolean: "Add syllable tier", config.read.return["doall_add_syllable_tier"]
+  boolean: "Add word tier", config.read.return["doall_add_word_tier"]
+clicked= endPause: "Cancel", "Apply","Ok", 3
 
-if clicked = 2
+if clicked = 1
   exitScript()
 endif
 
-@config.setField: "doall_TextGrid_folder_directory", textGrid_folder_directory$
-@config.setField: "doall_destination_directory", destination_directory$
-@config.setField: "doall_src_tier", input_tier$
-@config.setField: "doall_add_segment_tier", string$(add_segment_tier)
-@config.setField: "doall_add_syllable_tier", string$(add_syllable_tier)
-@config.setField: "doall_add_word_tier", string$(add_word_tier)
+# Save in preferences values
+@config.set: "doall_TextGrid_folder_directory", folder_with_annotation_files$
+@config.set: "doall_destination_directory", save_results_in$
+@config.set: "doall_src_tier", input_tier$
+@config.set: "doall_add_segment_tier", string$(add_segment_tier)
+@config.set: "doall_add_syllable_tier", string$(add_syllable_tier)
+@config.set: "doall_add_word_tier", string$(add_word_tier)
+@config.save
 
 #Open TextGrids one by one
-fileList = Create Strings as file list: "fileList", textGrid_folder_directory$ + "/*.TextGrid"
+fileList = Create Strings as file list: "fileList", folder_with_annotation_files$ + "/*.TextGrid"
 nFiles = Get number of strings
 number_of_unprocessed_files = 0
 for iFile to nFiles
     selectObject: fileList
-    tg_name$ = object$[fileList, iFile]
-    tg_path_src$ = textGrid_folder_directory$ + "/" + tg_name$
-    tg_path_dst$ = destination_directory$ + "/" + tg_name$
+    tg$ = object$[fileList, iFile]
+    tgPath$ = folder_with_annotation_files$ + "/" + tg$
+    tgPathDst$ = save_results_in$ + "/" + tg$
     
-    tg = Read from file: tg_path_src$
+    tg = Read from file: tgPath$
     temp_input_tier$ = input_tier$
     getTierNumber.return[temp_input_tier$] = 0
     # Check for the appropiate structure
@@ -64,7 +58,7 @@ for iFile to nFiles
       if add_segment_tier
         runScript: "add_segment_tier.praat", temp_input_tier$
       endif
-      Save as text file: tg_path_dst$
+      Save as text file: tgPathDst$
     else
       number_of_unprocessed_files += 1
     endif
@@ -72,7 +66,15 @@ for iFile to nFiles
 endfor
 removeObject: fileList
 
-writeInfoLine: "The tokenization process is done."
+writeInfoLine: "Tokenize (Do all)"
+appendInfoLine: "Number of files: ", nFiles
+appendInfoLine: "Number of tokenized files: ", nFiles - number_of_unprocessed_files
+
 if number_of_unprocessed_files
-  appendInfoLine: "'number_of_unprocessed_files' TextGrid(s) couldn't be tokenized. Check the input tier."
+  appendInfoLine: ""
+  appendInfoLine: "WARNING: There are 'number_of_unprocessed_files' TextGrid files that couldn't be tokenized."
+endif
+
+if clicked = 2
+  runScript: "main_do_all.praat"
 endif
