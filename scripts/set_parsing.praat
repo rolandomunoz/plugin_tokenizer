@@ -81,6 +81,6 @@ removeObject: str, str_sorted
 @config.set: "coda.boolean", string$(allow_coda)
 @config.save
 
-if clicked
+if clicked = 2
   runScript: "set_parsing.praat"
 endif

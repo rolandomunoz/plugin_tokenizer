@@ -3,6 +3,12 @@
 This is a Praat plug-in which segments TextGrid annotations into segments, syllables or words. 
 The resulting segmentation is stored as a new tier whithin the same TextGrid.
 
+## Documentation
+
+- [Website](https://rolandomunoz.github.io/plugin_tokenizer.html)
+- [Getting Started](https://rolandomunoz.github.io/plugin_tokenizer_gettingStarted.html)
+- [Manual](https://rolandomunoz.github.io/plugin_tokenizer_man.html)
+
 ## Getting started
 
 ### Prerequisites
