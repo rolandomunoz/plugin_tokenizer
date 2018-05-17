@@ -1,8 +1,8 @@
 # Copyright 2017 Rolando Munoz
 
 if praatVersion < 6040
-  appendInfoLine: "Plug-in name: Finder"
-  appendInfoLine: "WARNING: This plug-in only works on Praat version 6.0.39 or later. Please, get a more recent version of Praat."
+  appendInfoLine: "Plug-in name: Tokenizer"
+  appendInfoLine: "WARNING: This plug-in only works on Praat version 6.0.40 or later. Please, get a more recent version of Praat."
   appendInfoLine: "Praat website: http://www.fon.hum.uva.nl/praat/"
 endif
 
