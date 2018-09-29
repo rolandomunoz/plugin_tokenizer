@@ -1,32 +1,16 @@
 #Include libraries
 include ../procedures/config.proc
 include ../procedures/get_tier_number.proc
+include ../procedures/list_recursive_path.proc
 
-# Read variables from preferences.txt
-@config.read: "../preferences.txt"
-
-beginPause: "Tokenize (Do all)"
-  sentence: "Folder with annotation files", config.read.return$["doall_TextGrid_folder_directory"]
-  sentence: "Save results in", config.read.return$["doall_destination_directory"]
-  comment: "Add tokenized tiers"
-  sentence: "Input tier", config.read.return$["doall_src_tier"]
-  boolean: "Add segment tier", config.read.return["doall_add_segment_tier"]
-  boolean: "Add syllable tier", config.read.return["doall_add_syllable_tier"]
-  boolean: "Add word tier", config.read.return["doall_add_word_tier"]
-clicked= endPause: "Cancel", "Apply","Ok", 3
-
-if clicked = 1
-  exitScript()
-endif
-
-# Save in preferences values
-@config.set: "doall_TextGrid_folder_directory", folder_with_annotation_files$
-@config.set: "doall_destination_directory", save_results_in$
-@config.set: "doall_src_tier", input_tier$
-@config.set: "doall_add_segment_tier", string$(add_segment_tier)
-@config.set: "doall_add_syllable_tier", string$(add_syllable_tier)
-@config.set: "doall_add_word_tier", string$(add_word_tier)
-@config.save
+form Tokenize tier
+  sentence Folder_with_annotation_files
+  comment Add tiers:
+  sentence Input_tier phrase
+  boolean Add_segment_tier 1
+  boolean Add_syllable_tier 0
+  boolean Add_word_tier 0
+endform
 
 #Open TextGrids one by one
 fileList = Create Strings as file list: "fileList", folder_with_annotation_files$ + "/*.TextGrid"
@@ -73,8 +57,4 @@ appendInfoLine: "Number of tokenized files: ", nFiles - number_of_unprocessed_fi
 if number_of_unprocessed_files
   appendInfoLine: ""
   appendInfoLine: "WARNING: There are 'number_of_unprocessed_files' TextGrid files that couldn't be tokenized."
-endif
-
-if clicked = 2
-  runScript: "main_do_all.praat"
 endif
