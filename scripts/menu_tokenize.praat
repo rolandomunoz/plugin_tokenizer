@@ -14,27 +14,6 @@ form Tokenize tier
   boolean Add_word_tier 0
 endform
 
-# Save preferences
-## Save fields in preferences.txt
-@config.read: "../preferences.txt"
-@config.set: "annotation_folder_path", tg_folder_path$
-@config.set: "recursive_search", string$(recursive_search)
-@config.set: "menu_input_tier", input_tier$
-@config.set: "menu_add_segment_tier", string$(add_segment_tier)
-@config.set: "menu_add_syllable_tier", string$(add_syllable_tier)
-@config.set: "menu_add_word_tier", string$(add_word_tier)
-@config.save
-
-@config.read: "../preferences.txt"
-script$ = readFile$("template_menu_tokenize.praat")
-script$ = replace$(script$, "<tg_folder_path>", config.read.return$["annotation_folder_path"], 1)
-script$ = replace$(script$, "<recursive_search>", config.read.return$["recursive_search"], 1)
-script$ = replace$(script$, "<input_tier>", config.read.return$["menu_input_tier"], 1)
-script$ = replace$(script$, "<add_segment_tier>", config.read.return$["menu_add_segment_tier"], 1)
-script$ = replace$(script$, "<add_syllable_tier>", config.read.return$["menu_add_syllable_tier"], 1)
-script$ = replace$(script$, "<add_word_tier>", config.read.return$["menu_add_word_tier"], 1)
-writeFile: "menu_tokenize.praat", script$
-
 # Open TextGrids one by one
 @createStringAsFileList: "fileList",  tg_folder_path$ + "/*.TextGrid", recursive_search
 fileList = selected("Strings")
