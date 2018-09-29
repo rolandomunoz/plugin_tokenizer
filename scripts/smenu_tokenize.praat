@@ -4,23 +4,26 @@ include ../procedures/get_tier_number.proc
 include ../procedures/list_recursive_path.proc
 
 form Tokenize tier
-  sentence Folder_with_annotation_files
-  comment Add tiers:
-  sentence Input_tier phrase
+  comment Folder with annotation files:
+  text tg_folder_path /home/rolando/gdrive/proyectos/urarina/Fieldwork (14)/2018/data/data_raw_v2/questionnaire_03/test/
+  boolean Recursive_search 1
+  comment Tokenize TextGrid:
+  word Input_tier phrase
   boolean Add_segment_tier 1
   boolean Add_syllable_tier 0
   boolean Add_word_tier 0
 endform
 
-#Open TextGrids one by one
-fileList = Create Strings as file list: "fileList", folder_with_annotation_files$ + "/*.TextGrid"
+# Open TextGrids one by one
+@createStringAsFileList: "fileList",  tg_folder_path$ + "/*.TextGrid", recursive_search
+fileList = selected("Strings")
 nFiles = Get number of strings
+
 number_of_unprocessed_files = 0
 for iFile to nFiles
     selectObject: fileList
     tg$ = object$[fileList, iFile]
-    tgPath$ = folder_with_annotation_files$ + "/" + tg$
-    tgPathDst$ = save_results_in$ + "/" + tg$
+    tgPath$ = tg_folder_path$ + "/" + tg$
     
     tg = Read from file: tgPath$
     temp_input_tier$ = input_tier$
@@ -42,7 +45,7 @@ for iFile to nFiles
       if add_segment_tier
         runScript: "add_segment_tier.praat", temp_input_tier$
       endif
-      Save as text file: tgPathDst$
+      Save as text file: tgPath$
     else
       number_of_unprocessed_files += 1
     endif
