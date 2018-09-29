@@ -9,7 +9,7 @@ endif
 # Commands
 ## Static menu
 Add menu command: "Objects", "Goodies", "Tokenizer", "", 0, ""
-Add menu command: "Objects", "Goodies", "Tokenize (do all)...", "Tokenizer", 1, "scripts/main_do_all.praat"
+Add menu command: "Objects", "Goodies", "Tokenize (do all)...", "Tokenizer", 1, "scripts/smenu_tokenize.praat"
 Add menu command: "Objects", "Goodies", "Settings...", "Settings", 1, "./scripts/set_parsing.praat" 
 Add menu command: "Objects", "Goodies", "-", "Tokenizer", 1, ""
 Add menu command: "Objects", "Goodies", "About...", "Tokenizer", 1, "./scripts/about.praat"
@@ -17,6 +17,6 @@ Add menu command: "Objects", "Goodies", "About...", "Tokenizer", 1, "./scripts/a
 # Dynamic menu
 ## TextGrids
 Add action command: "TextGrid", 0, "", 0, "", 0, "Tokenizer", "", 0, ""
-Add action command: "TextGrid", 0, "", 0, "", 0, "Insert tokenized tier...", "Tokenizer", 0, "scripts/main_each.praat"
+Add action command: "TextGrid", 0, "", 0, "", 0, "Insert tokenized tier...", "Tokenizer", 0, "scripts/dmenu_main.praat"
 
 createDirectory: "temp"
