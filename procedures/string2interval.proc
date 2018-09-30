@@ -1,0 +1,27 @@
+# Copyright 2017-2018 Rolando Munoz
+
+procedure string2interval: .tier, .tmin, .tmax
+  .tg = selected("TextGrid")
+  .tokenList = selected("Strings")
+  
+  selectObject: .tokenList
+  .nTokens = Get number of strings
+  
+  selectObject: .tg
+  nocheck Insert boundary: .tier, .tmin
+  nocheck Insert boundary: .tier, .tmax
+  
+  .dur = abs(.tmax - .tmin)
+  .durToken = .dur/.nTokens
+  
+  for .iToken to .nTokens
+    .tmin+= .durToken
+    .token$ = object$[.tokenList, .iToken]
+    .lowInterval = Get low interval at time: .tier, .tmax
+    if .iToken < .nTokens
+      Insert boundary: .tier, .tmin
+    endif
+    Set interval text: .tier, .lowInterval, .token$
+  endfor
+  selectObject: .tg, .tokenList
+endproc

@@ -19,6 +19,9 @@ endform
 fileList = selected("Strings")
 nFiles = Get number of strings
 
+# Save unprocessed files
+tgList$ = ""
+
 number_of_unprocessed_files = 0
 for iFile to nFiles
     selectObject: fileList
@@ -26,28 +29,27 @@ for iFile to nFiles
     tgPath$ = tg_folder_path$ + "/" + tg$
     
     tg = Read from file: tgPath$
-    temp_input_tier$ = input_tier$
-    getTierNumber.return[temp_input_tier$] = 0
+    getTierNumber.return[input_tier$] = 0
     # Check for the appropiate structure
     @getTierNumber
-    
-    if getTierNumber.return[temp_input_tier$]
+    input_tier= getTierNumber.return[input_tier$]
+
+    if input_tier
       if add_word_tier
-        runScript: "add_word_tier.praat", temp_input_tier$
-        temp_input_tier$ = "word"
+        runScript: "add_word_tier.praat", input_tier
       endif
 
       if add_syllable_tier
-        runScript: "add_syllable_tier.praat", temp_input_tier$
-        temp_input_tier$ = "syll"
+        runScript: "add_syllable_tier.praat", input_tier
       endif
 
       if add_segment_tier
-        runScript: "add_segment_tier.praat", temp_input_tier$
+        runScript: "add_segment_tier.praat", input_tier
       endif
       Save as text file: tgPath$
     else
       number_of_unprocessed_files += 1
+      tgList$ = tgList$ + tg$ + newline$
     endif
     removeObject: tg
 endfor
@@ -60,4 +62,6 @@ appendInfoLine: "Number of tokenized files: ", nFiles - number_of_unprocessed_fi
 if number_of_unprocessed_files
   appendInfoLine: ""
   appendInfoLine: "WARNING: There are 'number_of_unprocessed_files' TextGrid files that couldn't be tokenized."
+  appendInfoLine: ""
+  appendInfoLine: tgList$
 endif

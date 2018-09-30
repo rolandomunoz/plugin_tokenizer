@@ -6,9 +6,9 @@ include ./../procedures/string_as_syllables.proc
 include ./../procedures/get_tier_number.proc
 
 form Add syllable tier
-    sentence Input_tier txt
+    natural Input_tier txt
 endform
-src_tier$ = input_tier$
+src_tier = input_tier
 
 # Get TextGrid info
 tg = selected("TextGrid")
@@ -36,17 +36,7 @@ endif
 
 ## Get tier number from tier name
 selectObject: tg
-getTierNumber.return[src_tier$] = 0
-@getTierNumber
-src_tier = getTierNumber.return[src_tier$]
 
-## If the tier name is not found, the exit the script
-if not src_tier
-  writeInfoLine: "The file ", tg_name$, ".TextGrid does not contain the tier <", src_tier$, ">."
-  exitScript()
-endif
-
-## Duplicate tier
 Duplicate tier: src_tier, src_tier, "syll"
 dst_tier = src_tier 
 src_tier += 1
@@ -104,3 +94,4 @@ endfor
 if parsingTable
   removeObject: parsingTable
 endif
+selectObject: tg

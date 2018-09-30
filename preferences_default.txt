@@ -1,16 +1,6 @@
-doall_TextGrid_folder_directory: /home/rolando/Corpus
-doall_destination_directory: /home/rolando/Results
-doall_src_tier: phrase
-doall_add_segment_tier: 1
-doall_add_syllable_tier: 1
-doall_add_word_tier: 1
-each_src_tier: phrase
-each_add_segment_tier: 1
-each_add_syllable_tier: 1
-each_add_word_tier: 1
-vowel: a e i o u
-consonant.complex: ch
-phonemes: ch a e i o u
-syllable.complex.onset: 
-syllable.complex.onset.all: ch
+vowel: 1_ a_ e_ i_ u_ 1 a e i u
+consonant.complex: tS
+phonemes: 1_ a_ e_ i_ tS u_ 1 a e i u
+syllable.complex.onset: tS
+syllable.complex.onset.all: tS tS
 coda.boolean: 1

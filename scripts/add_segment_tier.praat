@@ -5,10 +5,10 @@ include ./../procedures/string_as_phonemes.proc
 include ./../procedures/get_tier_number.proc
 
 form Add segment tier
-    sentence Input_tier
+    natural Input_tier
 endform
 
-src_tier$ = input_tier$
+src_tier = input_tier
 
 # Get TextGrid info
 tg = selected("TextGrid")
@@ -29,19 +29,10 @@ segments$ = consonants$ + "|" + vowels$
 
 ## Get tier number from tier name
 selectObject: tg
-getTierNumber.return[src_tier$] = 0
-@getTierNumber
-src_tier = getTierNumber.return[src_tier$]
-
-## If the tier name is not found, the exit the script
-if not src_tier
-  writeInfoLine: "The file ", tg_name$, ".TextGrid does not contain the tier <", src_tier$, ">."
-  exitScript()
-endif
 
 ## Duplicate tier
 Duplicate tier: src_tier, src_tier, "phon"
-dst_tier = src_tier 
+dst_tier = src_tier
 src_tier += 1
 
 # Segment texts from intervals into phonemes
@@ -72,3 +63,5 @@ for interval to nIntervals
     removeObject: phonemeList
   endif
 endfor
+
+selectObject: tg
