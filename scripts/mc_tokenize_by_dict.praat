@@ -5,7 +5,7 @@ include ../procedures/config.proc
 include ../procedures/get_tier_number.proc
 include ../procedures/list_recursive_path.proc
 
-form Tokenize tier
+form Tokenize tier (dictionary)
   comment Phonetic dictionary (csv):
   text Dictionary_path ../temp/urarina.csv
   comment Folder with annotation files:
