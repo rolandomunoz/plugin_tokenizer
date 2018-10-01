@@ -1,7 +1,5 @@
 # Copyright 2017-2018 Rolando Munoz
 
-#Include libraries
-
 form Tokenize tier
   natural Input_tier 1
   boolean Add_segment_tier 1
