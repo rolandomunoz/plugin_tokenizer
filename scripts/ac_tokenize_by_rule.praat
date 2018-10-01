@@ -3,8 +3,8 @@
 form Tokenize tier
   natural Input_tier 1
   boolean Add_segment_tier 1
-  boolean Add_syllable_tier 1
-  boolean Add_word_tier 1
+  boolean Add_syllable_tier 0
+  boolean Add_word_tier 0
 endform
 
 #Select TextGrids

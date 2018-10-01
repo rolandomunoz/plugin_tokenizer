@@ -5,7 +5,7 @@ include ../procedures/list_recursive_path.proc
 
 form Tokenize tier
   comment Folder with annotation files:
-  text tg_folder_path /home/rolando/Desktop/test
+  text tg_folder_path /home/user/Desktop/corpus
   boolean Recursive_search 0
   comment Tokenize TextGrid:
   word Input_tier phrase
