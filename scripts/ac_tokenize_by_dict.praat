@@ -1,6 +1,6 @@
 # Copyright 2017-2018 Rolando Munoz
 
-form Tokenize tier
+form Tokenize tier (dictionary)
   comment Phonetic dictionary (csv):
   text Dictionary_path ../temp/urarina.csv
   comment Tokenize TextGrid:
