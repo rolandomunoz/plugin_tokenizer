@@ -13,7 +13,7 @@ The resulting segmentation is stored as a new tier whithin the same TextGrid.
 
 ### Prerequisites
 
-- Praat 6.0.40 or la (download [here](http://www.fon.hum.uva.nl/praat/download_win.html))
+- Praat 6.0.40 or later (download [here](http://www.fon.hum.uva.nl/praat/download_win.html))
 
 ### Install
 
@@ -64,4 +64,4 @@ This project is licensed under the GNU GPL terms - see the [LICENSE.md](https://
 
 ## How to cite?
 
-`Muñoz A., Rolando (2018). Tokenizer[Praat plug-in]. Version 1.0.1, retrived 14 May 2018 from https://gitlab.com/praat_plugins_rma/plugin_tokenizer`
+`Muñoz A., Rolando (2018). Tokenizer[Praat plug-in]. Version 1.2.0, retrived 20 Sep 2018 from https://gitlab.com/praat_plugins_rma/plugin_tokenizer`
