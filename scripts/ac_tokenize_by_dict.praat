@@ -2,7 +2,7 @@
 
 form Tokenize tier (dictionary)
   comment Phonetic dictionary (csv):
-  text Dictionary_path ../temp/urarina.csv
+  text Dictionary_path ../temp/dictionary.csv
   comment Tokenize TextGrid:
   natural Input_tier 1
   boolean Add_segment_tier 1
@@ -42,5 +42,9 @@ for i to nSelected
     Remove tier: phon_tier
   endif
 endfor
+
+selectObject: tb_phonetic
+Save as comma-separated file: "../temp/dictionary.csv"
+
 removeObject: tb_phonetic
 selectObject: tg#

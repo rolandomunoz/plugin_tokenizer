@@ -7,9 +7,9 @@ include ../procedures/list_recursive_path.proc
 
 form Tokenize tier (dictionary)
   comment Phonetic dictionary (csv):
-  text Dictionary_path ../temp/urarina.csv
+  text Dictionary_path ../temp/dictionary.csv
   comment Folder with annotation files:
-  text tg_folder_path /home/rolando/Desktop/tokenize_test/phrases
+  text tg_folder_path /home/user/Desktop/corpus
   boolean Recursive_search 0
   comment Tokenize TextGrid:
   word Input_tier phrase
@@ -27,6 +27,7 @@ nFiles = Get number of strings
 wordCol$ = "word"
 pronunciationCol$ = "pronunciation"
 tb_phonetic = Read Table from comma-separated file: dictionary_path$
+
 is_word= Get column index: wordCol$
 is_pronunciation= Get column index: pronunciationCol$
 
@@ -77,6 +78,8 @@ for iFile to nFiles
   removeObject: tg
 endfor
 
+selectObject: tb_phonetic
+Save as comma-separated file: "../temp/dictionary.csv"
 removeObject: fileList, tb_phonetic
 
 writeInfoLine: "Tokenize tier (dictionary)..."
