@@ -1,6 +1,6 @@
-vowel: 1_ a_ e_ i_ u_ 1 a e i u
-consonant.complex: tS
-phonemes: 1_ a_ e_ i_ tS u_ 1 a e i u
-syllable.complex.onset: tS
-syllable.complex.onset.all: tS tS
+vowel: a e i o u
+consonant.complex: ch
+phonemes: ch a e i o u
+syllable.complex.onset: ch
+syllable.complex.onset.all: ch
 coda.boolean: 1
