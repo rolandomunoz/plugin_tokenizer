@@ -4,7 +4,6 @@ form Tokenize tier
   natural Input_tier 1
   boolean Add_segment_tier 1
   boolean Add_syllable_tier 0
-  boolean Add_word_tier 0
 endform
 
 #Select TextGrids
@@ -17,10 +16,6 @@ for i to n
   input_tier = input_tier_constant
   
   selectObject: tg#[i]
-  if add_word_tier
-    runScript: "add_word_tier.praat", input_tier
-  endif
-
   if add_syllable_tier
     runScript: "add_syllable_tier.praat", input_tier
   endif

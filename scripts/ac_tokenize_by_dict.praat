@@ -7,11 +7,9 @@ form Tokenize tier (dictionary)
   natural Input_tier 1
   boolean Add_segment_tier 1
   boolean Add_syllable_tier 1
-  boolean Add_word_tier 0
 endform
 
 # Remember that the position of the input_tier will increase by 3 when added the word, phon and syll tiers 
-word_tier = input_tier + 2
 syll_tier = input_tier + 1
 phon_tier = input_tier
 
@@ -27,13 +25,8 @@ pronunciationCol$ = "pronunciation"
 selectObject: tg#
 for i to nSelected
   selectObject: tg#[i]
-  runScript: "add_word_tier.praat", input_tier
   runScript: "add_phon&syll_by_dict.praat", input_tier, dictionary_path$, tb_phonetic
-  
-  if not add_word_tier
-    Remove tier: word_tier
-  endif
-  
+    
   if not add_syllable_tier
     Remove tier: syll_tier
   endif

@@ -3,14 +3,12 @@ include ../procedures/config.proc
 include ../procedures/get_tier_number.proc
 include ../procedures/list_recursive_path.proc
 
-form Add phon/syll tier
+form Add word tier
   comment Folder with annotation files:
   text tg_folder_path /home/user/Desktop/corpus
   boolean Recursive_search 0
   comment TextGrid:
-  word Input_tier word
-  boolean Add_segment_tier 1
-  boolean Add_syllable_tier 0
+  word Input_tier phrase
 endform
 
 # Open TextGrids one by one
@@ -34,13 +32,7 @@ for iFile to nFiles
     input_tier= getTierNumber.return[input_tier$]
 
     if input_tier
-      if add_syllable_tier
-        runScript: "add_syllable_tier.praat", input_tier
-      endif
-
-      if add_segment_tier
-        runScript: "add_segment_tier.praat", input_tier
-      endif
+      runScript: "add_word_tier.praat", input_tier
       Save as text file: tgPath$
     else
       number_of_unprocessed_files += 1

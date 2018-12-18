@@ -5,17 +5,16 @@ include ../procedures/config.proc
 include ../procedures/get_tier_number.proc
 include ../procedures/list_recursive_path.proc
 
-form Tokenize tier (dictionary)
+form Add phon/syll tier (dictionary)
   comment Phonetic dictionary (csv):
   text Dictionary_path ../temp/dictionary.csv
   comment Folder with annotation files:
   text tg_folder_path /home/user/Desktop/corpus
   boolean Recursive_search 0
-  comment Tokenize TextGrid:
-  word Input_tier phrase
+  comment TextGrid:
+  word Input_tier word
   boolean Add_segment_tier 1
   boolean Add_syllable_tier 1
-  boolean Add_word_tier 0
 endform
 
 # Open TextGrids one by one
@@ -51,18 +50,12 @@ for iFile to nFiles
   # Check for the appropiate structure
   @getTierNumber
   input_tier = getTierNumber.return[input_tier$]
-  word_tier = input_tier + 2
   syll_tier = input_tier + 1
   phon_tier = input_tier
 
   if input_tier
-    runScript: "add_word_tier.praat", input_tier
     runScript: "add_phon&syll_by_dict.praat", input_tier, dictionary_path$, tb_phonetic
-    
-    if not add_word_tier
-      Remove tier: word_tier
-    endif
-    
+        
     if not add_syllable_tier
       Remove tier: syll_tier
     endif
